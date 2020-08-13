@@ -8,9 +8,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './User'
+import { User } from './user.entity'
 
-@Entity({ schema: 'master', name: 'refresh_tokens' })
+@Entity({ schema: 'admin', name: 'refresh_tokens' })
 export class RefreshToken extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number

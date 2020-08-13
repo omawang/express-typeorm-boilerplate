@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm'
-import { RefreshToken } from 'src/database/entities/RefreshToken'
+import { RefreshToken } from 'src/database/entities/master/refresh-token.entity'
 
 export default {
   save: async (userId: number, token: string) => {

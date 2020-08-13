@@ -10,7 +10,7 @@ import { LoginDto } from './dto/login.dto'
 
 import refreshTokensService from 'src/modules/master/refresh-tokens/refresh-tokens.service'
 
-import { User } from 'src/database/entities/User'
+import { User } from 'src/database/entities/master/user.entity'
 
 const {
   JWT_SECRET_ACCESS_TOKEN,

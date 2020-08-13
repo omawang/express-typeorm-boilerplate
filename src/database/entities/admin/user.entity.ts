@@ -6,24 +6,26 @@ import {
   UpdateDateColumn,
   BaseEntity,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm'
 import bcrypt from 'bcrypt'
+import { UsergroupEnum } from 'src/shared/enums/admin/user.enum'
 
-@Entity({ schema: 'master', name: 'users' })
+@Entity({ schema: 'admin', name: 'users' })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number
 
   @Column({ type: 'varchar' })
-  name: string
-
-  @Column({ type: 'varchar', unique: true })
-  phone: string
+  usergroup: UsergroupEnum
 
   @Column({ type: 'varchar' })
-  profession: string
+  name: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar' })
+  phone: string
+
+  @Column({ type: 'varchar', nullable: true })
   avatar: string
 
   @Column({ type: 'varchar', unique: true })
@@ -31,15 +33,6 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar', select: false })
   password: string
-
-  @Column({ type: 'varchar', select: false })
-  pin: string
-
-  @Column({ type: 'boolean', default: false })
-  is_agent: string
-
-  @Column({ type: 'timestamp without time zone', nullable: true })
-  agent_verified_at: Date
 
   @CreateDateColumn()
   created_at: Date
@@ -51,9 +44,11 @@ export class User extends BaseEntity {
   deleted_at: Date
 
   @BeforeInsert()
-  async hashPassword() {
+  @BeforeUpdate()
+  async hashPasswordAndPin() {
     const salt = process.env.SALT_ROUND ? Number(process.env.SALT_ROUND) : 10
-    this.password = await bcrypt.hashSync(this.password, salt)
-    this.pin = await bcrypt.hashSync(this.pin, salt)
+    if (this.password) {
+      this.password = await bcrypt.hashSync(this.password, salt)
+    }
   }
 }

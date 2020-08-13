@@ -4,7 +4,7 @@ import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes'
 import { IErrorResponse } from 'src/shared/interfaces'
 import { MsgErr, MsgTitleErr } from 'src/shared/constants'
 
-import { User } from 'src/database/entities/User'
+import { User } from 'src/database/entities/master/user.entity'
 
 import { UpdateProfileDto } from './dto/update-profile.dto'
 
