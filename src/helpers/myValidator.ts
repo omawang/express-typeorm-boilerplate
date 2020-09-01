@@ -2,8 +2,7 @@ import { validate } from 'class-validator'
 import { Response } from 'express'
 import { BAD_REQUEST } from 'http-status-codes'
 
-import { IErrorResponse } from './interfaces'
-import { MsgTitleErr, MsgErr } from './constants'
+import { genErrorRes } from './myErrorRes'
 
 const formatValidationError = (errors: any) => {
   // console.log(errors[0].property)
@@ -12,7 +11,11 @@ const formatValidationError = (errors: any) => {
   } else {
     const result = {}
     errors.map((item) => {
-      result[item.property] = Object.values(item.constraints)
+      if (item.children.length === 0) {
+        result[item.property] = Object.values(item.constraints)
+      } else {
+        result[item.property] = formatValidationError(item.children)
+      }
     })
 
     return result
@@ -23,14 +26,6 @@ export default async (res: Response, args: any) => {
   const errors = await validate(args)
 
   if (Array.isArray(errors) && errors.length > 0) {
-    throw <IErrorResponse>{
-      statusCode: BAD_REQUEST,
-      body: {
-        success: false,
-        messageTitle: MsgTitleErr[BAD_REQUEST],
-        message: MsgErr[BAD_REQUEST],
-        errors: formatValidationError(errors),
-      },
-    }
+    throw genErrorRes(BAD_REQUEST, null, formatValidationError(errors))
   }
 }

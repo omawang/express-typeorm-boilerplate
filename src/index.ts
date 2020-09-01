@@ -2,7 +2,7 @@ import 'reflect-metadata' // Must be the first import
 import './loadEnv'
 import { createConnection, getConnectionOptions } from 'typeorm'
 import app from './server'
-import logger from './shared/logger'
+import logger from './helpers/logger'
 
 // Start the server
 const port = Number(process.env.PORT || 3000)

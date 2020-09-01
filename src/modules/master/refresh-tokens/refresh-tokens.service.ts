@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm'
 import { RefreshToken } from 'src/database/entities/master/refresh-token.entity'
 
-export default {
-  save: async (userId: number, token: string) => {
+class RefreshTokensService {
+  async save(userId: number, token: string) {
     const repository = getRepository(RefreshToken)
 
     const check = await repository.findOne({ where: { user_id: userId } })
@@ -17,5 +17,7 @@ export default {
       check.token = token
       await check.save()
     }
-  },
+  }
 }
+
+export default RefreshTokensService

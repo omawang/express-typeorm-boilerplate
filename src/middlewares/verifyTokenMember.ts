@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { UNAUTHORIZED, FORBIDDEN } from 'http-status-codes'
-import { MsgTitleErr } from 'src/shared/constants'
+import { MsgTitleErr } from 'src/commons/constants'
 
 const { JWT_SECRET_ACCESS_TOKEN } = process.env
 

@@ -4,6 +4,6 @@ export interface IErrorResponse {
     success: boolean
     messageTitle: string
     message: string
-    errors: any
+    errors?: any
   }
 }

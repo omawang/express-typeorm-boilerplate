@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { options } from './commandLineArgs'
+import { options } from './commons/commandLineArgs'
 
 // Set the env file
 const result2 = dotenv.config({

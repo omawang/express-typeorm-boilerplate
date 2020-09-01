@@ -9,7 +9,7 @@ import {
   BeforeUpdate,
 } from 'typeorm'
 import bcrypt from 'bcrypt'
-import { UsergroupEnum } from 'src/shared/enums/admin/user.enum'
+import { UsergroupEnum } from 'src/commons/enums/admin/user.enum'
 
 @Entity({ schema: 'admin', name: 'users' })
 export class User extends BaseEntity {

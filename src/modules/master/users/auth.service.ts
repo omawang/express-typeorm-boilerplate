@@ -3,12 +3,12 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes'
 
-import { IErrorResponse } from 'src/shared/interfaces'
-import { MsgTitleErr, MsgErr } from 'src/shared/constants'
+import { genErrorRes } from 'src/helpers/myErrorRes'
+
 import { RegisterDto } from './dto/register.dto'
 import { LoginDto } from './dto/login.dto'
 
-import refreshTokensService from 'src/modules/master/refresh-tokens/refresh-tokens.service'
+import RefreshTokensService from 'src/modules/master/refresh-tokens/refresh-tokens.service'
 
 import { User } from 'src/database/entities/master/user.entity'
 
@@ -19,8 +19,8 @@ const {
   JWT_REFRESH_TOKEN_EXPIRED,
 } = process.env
 
-export default {
-  register: async (args: RegisterDto) => {
+class AuthService {
+  async register(args: RegisterDto) {
     const userRepository = getRepository(User)
 
     const user = await userRepository.findOne({
@@ -35,15 +35,7 @@ export default {
           : {
               phone: ['phone already exist'],
             }
-      throw <IErrorResponse>{
-        statusCode: BAD_REQUEST,
-        body: {
-          success: false,
-          messageTitle: MsgTitleErr[BAD_REQUEST],
-          message: MsgErr[BAD_REQUEST],
-          errors,
-        },
-      }
+      throw genErrorRes(BAD_REQUEST, null, errors)
     }
 
     const newUser = new User()
@@ -63,9 +55,9 @@ export default {
         id: newUser.id,
       },
     }
-  },
+  }
 
-  login: async (args: LoginDto) => {
+  async login(args: LoginDto) {
     const userRepository = getRepository(User)
 
     const user = await userRepository.findOne({
@@ -74,29 +66,14 @@ export default {
     })
 
     if (!user) {
-      throw <IErrorResponse>{
-        statusCode: NOT_FOUND,
-        body: {
-          success: false,
-          messageTitle: MsgTitleErr[NOT_FOUND],
-          message: MsgErr[NOT_FOUND],
-          errors: {
-            email: ['email not found'],
-          },
-        },
-      }
+      throw genErrorRes(NOT_FOUND, null, {
+        email: ['email not found'],
+      })
     }
 
     const validPass = await bcrypt.compare(args.password, user.password)
     if (!validPass) {
-      throw <IErrorResponse>{
-        statusCode: NOT_FOUND,
-        body: {
-          success: false,
-          messageTitle: MsgTitleErr[NOT_FOUND],
-          message: 'User not found',
-        },
-      }
+      throw genErrorRes(NOT_FOUND, 'User not found')
     }
 
     const data = {
@@ -118,11 +95,13 @@ export default {
     )
 
     // save refresh token
-    await refreshTokensService.save(data.id, refreshToken)
-    
+    await new RefreshTokensService().save(data.id, refreshToken)
+
     return {
       token,
       refresh_token: refreshToken,
     }
-  },
+  }
 }
+
+export default AuthService

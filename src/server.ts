@@ -8,7 +8,7 @@ import { BAD_REQUEST } from 'http-status-codes'
 import 'express-async-errors'
 
 import BaseRouter from './routes'
-import logger from './shared/logger'
+import logger from './helpers/logger'
 
 // Init express
 const app = express()

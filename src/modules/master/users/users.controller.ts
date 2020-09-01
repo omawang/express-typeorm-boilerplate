@@ -2,12 +2,12 @@ import { Request, Response } from 'express'
 import { plainToClass } from 'class-transformer'
 import { CREATED, OK, INTERNAL_SERVER_ERROR } from 'http-status-codes'
 
-import validator from 'src/shared/myValidator'
-import { IErrorResponse } from 'src/shared/interfaces'
-import { MsgErr } from 'src/shared/constants'
+import validator from 'src/helpers/myValidator'
+import { IErrorResponse } from 'src/commons/interfaces'
+import { MsgErr } from 'src/commons/constants'
 
-import authService from './auth.service'
-import usersService from './users.service'
+import AuthService from './auth.service'
+import UsersService from './users.service'
 
 import { RegisterDto } from './dto/register.dto'
 import { LoginDto } from './dto/login.dto'
@@ -19,7 +19,7 @@ export default {
       const args: RegisterDto = plainToClass(RegisterDto, req.body)
       await validator(res, args)
 
-      const result = await authService.register(args)
+      const result = await new AuthService().register(args)
       return res.status(CREATED).json(result)
     } catch (error) {
       return res
@@ -37,7 +37,7 @@ export default {
       const args: LoginDto = plainToClass(LoginDto, req.body)
       await validator(res, args)
 
-      const result = await authService.login(args)
+      const result = await new AuthService().login(args)
       return res.status(OK).json(result)
     } catch (error) {
       console.log(error)
@@ -49,7 +49,7 @@ export default {
 
   getProfile: async (req: Request, res: Response) => {
     try {
-      const result = await usersService.getProfile((req as any).user.data.id)
+      const result = await new UsersService().getProfile((req as any).user.data.id)
       return res.status(OK).json(result)
     } catch (error) {
       return res
@@ -63,7 +63,7 @@ export default {
       const args: UpdateProfileDto = plainToClass(UpdateProfileDto, req.body)
       await validator(res, args)
 
-      const result = await usersService.updateProfile(
+      const result = await new UsersService().updateProfile(
         (req as any).user.data.id,
         args
       )
