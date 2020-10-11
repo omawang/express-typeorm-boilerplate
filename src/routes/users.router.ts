@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
-import usersController from 'src/modules/master/users/users.controller'
-import verifyTokenMember from 'src/middlewares/verifyTokenMember'
+import usersController from '@modules/master/users/users.controller'
+import verifyTokenMember from '@middlewares/verifyTokenMember'
 
 const router = Router()
 

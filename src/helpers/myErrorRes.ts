@@ -1,5 +1,5 @@
-import { IErrorResponse } from 'src/commons/interfaces'
-import { MsgTitleErr, MsgErr } from 'src/commons/constants'
+import { IErrorResponse } from '@commons/interfaces'
+import { MsgTitleErr, MsgErr } from '@commons/constants'
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes'
 
 export const genErrorRes = (

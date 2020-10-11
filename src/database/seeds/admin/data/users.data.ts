@@ -1,4 +1,4 @@
-import { UsergroupEnum } from 'src/shared/enums/admin/user.enum'
+import { UsergroupEnum } from '@commons/enums/admin/user.enum'
 
 export const usersData = [
   {

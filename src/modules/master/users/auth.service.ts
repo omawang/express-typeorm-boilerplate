@@ -3,14 +3,14 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes'
 
-import { genErrorRes } from 'src/helpers/myErrorRes'
+import { genErrorRes } from '@helpers/myErrorRes'
 
 import { RegisterDto } from './dto/register.dto'
 import { LoginDto } from './dto/login.dto'
 
-import RefreshTokensService from 'src/modules/master/refresh-tokens/refresh-tokens.service'
+import RefreshTokensService from '@modules/master/refresh-tokens/refresh-tokens.service'
 
-import { User } from 'src/database/entities/master/user.entity'
+import { User } from '@database/entities/master/user.entity'
 
 const {
   JWT_SECRET_ACCESS_TOKEN,

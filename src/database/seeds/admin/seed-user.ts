@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm'
-import { User } from 'src/database/entities/admin/user.entity'
+import { User } from '@database/entities/admin/user.entity'
 
 import { usersData } from './data/users.data'
 

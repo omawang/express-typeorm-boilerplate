@@ -2,9 +2,9 @@ import { Request, Response } from 'express'
 import { plainToClass } from 'class-transformer'
 import { CREATED, OK, INTERNAL_SERVER_ERROR } from 'http-status-codes'
 
-import validator from 'src/helpers/myValidator'
-import { IErrorResponse } from 'src/commons/interfaces'
-import { MsgErr } from 'src/commons/constants'
+import validator from '@helpers/myValidator'
+import { IErrorResponse } from '@commons/interfaces'
+import { MsgErr } from '@commons/constants'
 
 import AuthService from './auth.service'
 import UsersService from './users.service'

@@ -2,26 +2,27 @@
   "name": "express-typeorm-boilerplate",
   "version": "0.0.0",
   "scripts": {
-    "build": "node build.js",
-    "lint": "tslint --project \"tsconfig.json\"",
+    "build": "rm -rf dist && tsc --build tsconfig.prod.json",
     "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
+    "lint": "tslint --project \"tsconfig.json\"",
     "test": "nodemon --config ./spec/nodemon.json",
-    "typeorm": "NODE_PATH=./ ts-node ./node_modules/typeorm/cli.js",
-    "seeder": "NODE_PATH=./ ts-node ./src/database/seeds"
+    "typeorm": "NODE_PATH=./ ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "seeder": "NODE_PATH=./ ts-node -r tsconfig-paths/register ./src/database/seeds"
   },
   "nodemonConfig": {
     "watch": [
       "src"
     ],
-    "ext": "ts, html",
-    "ignore": [
-      "src/public"
-    ],
+    "ext": "ts",
     "exec": "ts-node -r tsconfig-paths/register ./src"
   },
   "_moduleAliases": {
-    "src": "dist"
+    "@commons": "dist/commons",
+    "@database": "dist/database",
+    "@helpers": "dist/helpers",
+    "@middlewares": "dist/middlewares",
+    "@modules": "dist/modules"
   },
   "dependencies": {
     "axios": "^0.19.2",
