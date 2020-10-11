@@ -1,9 +1,9 @@
 import { getRepository, Not } from 'typeorm'
 import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes'
 
-import { genErrorRes } from 'src/helpers/myErrorRes'
+import { genErrorRes } from '@helpers/myErrorRes'
 
-import { User } from 'src/database/entities/master/user.entity'
+import { User } from '@database/entities/master/user.entity'
 
 import { UpdateProfileDto } from './dto/update-profile.dto'
 

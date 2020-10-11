@@ -1,6 +1,6 @@
 import 'src/loadEnv'
 import { createConnection, getConnectionOptions } from 'typeorm'
-import { options as optionsCommand } from 'src/commons/commandLineArgs'
+import { options as optionsCommand } from '@commons/commandLineArgs'
 
 import adminSeeder from './admin'
 

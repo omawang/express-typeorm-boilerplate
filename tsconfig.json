@@ -11,24 +11,18 @@
     "sourceMap": true,
     "strict": false,
     "target": "es6",
+    "lib": ["es2015", "es2017"],
     "moduleResolution": "node",
     "paths": {
-      "src/*": [
-        "src/*"
-      ]
+      "@commons/*": ["src/commons/*"],
+      "@database/*": ["src/database/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@modules/*": ["src/modules/*"]
     },
-    "types": [
-      "node"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": [
-    "src/**/*.ts",
-    "spec/**/*.ts"
-  ],
-  "exclude": [
-    "src/public/"
-  ]
+  "include": ["src/**/*.ts", "spec/**/*.ts"],
+  "exclude": ["src/public/"]
 }
